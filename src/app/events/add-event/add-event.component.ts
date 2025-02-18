@@ -113,6 +113,8 @@ export class AddEventComponent implements OnInit {
       },
       error: (error) => {
         this.isSubmitting = false;
+        console.log(error)
+        this.errorMessage=error.error.error
         // ... error handling
       }
     });

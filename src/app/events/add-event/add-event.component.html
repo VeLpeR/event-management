@@ -48,7 +48,7 @@
         </button>
         <button type="submit" class="btn-primary" [disabled]="eventForm.invalid || isSubmitting">
           <span *ngIf="isSubmitting" class="spinner"></span>
-          {{ isSubmitting ? 'Creating...' : isEditing ? 'Editing Event' : 'Create Event' }}
+          {{ isSubmitting ? 'Creating...' : isEditing ? 'Edit Event' : 'Create Event' }}
         </button>
       </div>
     </form>

@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
     private attendeesService: AttendeesService,
     private router: Router
   ) {}
-
+nearestUpcomingEvent:any
   ngOnInit() {
     this.loadDashboardStats();
   }
@@ -39,10 +39,18 @@ export class DashboardComponent implements OnInit {
     this.error = '';
 
     // Load events stats
-    this.eventsService.getEvents().subscribe({
-      next: (response) => {
-        this.stats.totalEvents = response.total;
+    this.eventsService.getAllEvent().subscribe({
+      next: (response:any) => {
+        this.stats.totalEvents = response.length;
         this.isLoading = false;
+
+        // Filter upcoming events
+        const currentDate = new Date();
+        const upcomingEvents = response.filter((event:any) => new Date(event.date) > currentDate) // Only future events
+          .sort((a:any, b:any) => new Date(a.date).getTime() - new Date(b.date).getTime()); // Sort by closest date
+
+        // Select the nearest upcoming event
+        this.nearestUpcomingEvent = upcomingEvents.length > 0 ? upcomingEvents[0] : null;
       },
       error: (error) => {
         this.error = 'Failed to load dashboard stats';
@@ -52,6 +60,7 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
+
 
     // Load total attendees
     this.attendeesService.getAllAttendees().subscribe({
@@ -66,7 +75,17 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+  formatDate(date: string | Date): string {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
 
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
   navigateToEvents() {
     this.router.navigate(['/event']);
   }

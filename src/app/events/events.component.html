@@ -1,11 +1,11 @@
 <div class="events-container">
   <div class="events-header">
-    <h2>Events</h2>
+    <h2><span style="cursor: pointer;color: rgb(13, 57, 232);" (click)="goToDashboard()"><i class="fa fa-arrow-left" aria-hidden="true"></i></span> Events</h2>
     <div class="header-actions">
       <div class="filter-section">
-        <select 
-          class="type-filter" 
-          [ngModel]="selectedType" 
+        <select
+          class="type-filter"
+          [ngModel]="selectedType"
           (ngModelChange)="onTypeChange($event)">
           <option *ngFor="let type of eventTypes" [value]="type">
             {{ type }}
@@ -39,7 +39,7 @@
           <p class="event-description">{{ event.description || 'No description available' }}</p>
         </div>
         <div class="event-actions">
-          <button class="btn-secondary" (click)="viewEvent(event._id!)">View</button>
+          <button class="btn-secondary" style="background:rgb(106, 175, 3);" (click)="viewEvent(event._id!)">View</button>
           <button class="btn-primary" (click)="editEvent(event._id!)">Edit</button>
           <button class="btn-danger" (click)="deleteEvent(event._id!)">Delete</button>
         </div>
@@ -50,17 +50,17 @@
       <div class="pagination-info">
         Showing {{ startItem }} to {{ endItem }} of {{ totalItems }} events
       </div>
-      
+
       <div class="pagination-controls">
-        <button 
-          class="btn-secondary pagination-button" 
+        <button
+          class="btn-secondary pagination-button"
           [disabled]="currentPage === 1"
           (click)="previousPage()">
           <span class="pagination-icon">←</span> Previous
         </button>
 
         <div class="pagination-pages">
-          <button 
+          <button
             *ngFor="let page of [].constructor(totalPages); let i = index"
             class="pagination-page"
             [class.active]="currentPage === i + 1"
@@ -70,8 +70,8 @@
           </button>
         </div>
 
-        <button 
-          class="btn-secondary pagination-button" 
+        <button
+          class="btn-secondary pagination-button"
           [disabled]="currentPage >= totalPages"
           (click)="nextPage()">
           Next <span class="pagination-icon">→</span>

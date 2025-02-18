@@ -92,8 +92,8 @@ export class EventsComponent implements OnInit {
 
   viewEvent(_id: string): void {
     this.dialog.open(ViewAttendeesComponent, {
-      width: '100%',
-      height:'100%',
+      // width: '100%',
+      // height:'100%',
       data: { eventId: _id }
     });
   }
@@ -126,5 +126,9 @@ export class EventsComponent implements OnInit {
     this.selectedType = type;
     this.currentPage = 1; // Reset to first page when filter changes
     this.loadEvents();
+  }
+
+  goToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 }
