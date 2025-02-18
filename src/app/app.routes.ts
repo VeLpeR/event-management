@@ -22,14 +22,17 @@ export const routes: Routes = [
   },
   {
     path: 'event',
-    component: EventsComponent
+    component: EventsComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'attendee',
-    component: AttendeesComponent
+    component: AttendeesComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'add-event',
-    component: AddEventComponent
+    component: AddEventComponent,
+    canActivate: [authGuard]
   }
 ];
