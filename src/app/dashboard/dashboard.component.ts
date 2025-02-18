@@ -1,0 +1,77 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { EventsService } from '../../services/events.service';
+import { AttendeesService } from '../../services/attendees.service';
+
+interface DashboardStats {
+  totalEvents: number;
+  totalAttendees: number;
+}
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
+})
+export class DashboardComponent implements OnInit {
+  stats: DashboardStats = {
+    totalEvents: 0,
+    totalAttendees: 0
+  };
+  isLoading = true;
+  error = '';
+
+  constructor(
+    private eventsService: EventsService,
+    private attendeesService: AttendeesService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.loadDashboardStats();
+  }
+
+  private loadDashboardStats() {
+    this.isLoading = true;
+    this.error = '';
+
+    // Load events stats
+    this.eventsService.getEvents().subscribe({
+      next: (response) => {
+        this.stats.totalEvents = response.total;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.error = 'Failed to load dashboard stats';
+        this.isLoading = false;
+        if (error.status === 401) {
+          this.router.navigate(['/login']);
+        }
+      }
+    });
+
+    // Load total attendees
+    this.attendeesService.getAllAttendees().subscribe({
+      next: (attendees) => {
+        this.stats.totalAttendees = attendees.length;
+      },
+      error: (error) => {
+        this.error = 'Failed to load attendee stats';
+        if (error.status === 401) {
+          this.router.navigate(['/login']);
+        }
+      }
+    });
+  }
+
+  navigateToEvents() {
+    this.router.navigate(['/event']);
+  }
+  addAttendees(){
+    this.router.navigate(['/attendee']);
+
+  }
+}

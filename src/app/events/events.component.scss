@@ -1,0 +1,252 @@
+.title{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    button{
+        border: none;
+        background-color: rgb(110, 110, 246);
+    }
+}
+.events-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.events-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    margin: 0;
+    color: #333;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .filter-section {
+    .type-filter {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      min-width: 150px;
+      background-color: white;
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+      }
+    }
+  }
+}
+
+.event-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .event-info {
+    flex: 1;
+
+    h3 {
+      margin: 0 0 0.5rem;
+      color: #333;
+    }
+
+    .event-type {
+      color: #666;
+      font-size: 0.9rem;
+      margin: 0.25rem 0;
+    }
+
+    .event-date {
+      color: #007bff;
+      font-weight: 500;
+      margin: 0.25rem 0;
+    }
+
+    .event-description {
+      color: #666;
+      margin: 0.5rem 0 0;
+    }
+  }
+
+  .event-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+.error-message {
+  background-color: #fff3f3;
+  color: #dc3545;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid #dc3545;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  span {
+    color: #666;
+  }
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #5a6268;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c82333;
+  }
+}
+
+.no-events {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1rem 0;
+
+  p {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}
+
+.events-list {
+  min-height: 200px; // Ensure there's space even with few items
+}
+
+.pagination-container {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.pagination-info {
+  text-align: center;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pagination-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.pagination-pages {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pagination-page {
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  
+  &:hover:not(:disabled) {
+    background-color: #f0f0f0;
+  }
+  
+  &.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.pagination-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}

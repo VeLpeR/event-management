@@ -1,0 +1,91 @@
+<div class="attendee-container">
+  <div class="attendee-form-card">
+    <h2>Event Registration</h2>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #attendeeForm="ngForm">
+      <div class="form-group">
+        <label for="event">Select Event *</label>
+        <select 
+          id="event" 
+          name="eventId" 
+          [(ngModel)]="attendee.eventId"
+          required
+          #eventField="ngModel">
+          <option value="">Choose an event</option>
+          <option *ngFor="let event of events" [value]="event._id">
+            {{ event.name }} - {{ event.date | date:'mediumDate' }}
+          </option>
+        </select>
+        <div *ngIf="eventField.invalid && (eventField.dirty || eventField.touched)" class="validation-error">
+          Please select an event
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Full Name *</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          [(ngModel)]="attendee.name"
+          required
+          minlength="2"
+          #nameField="ngModel">
+        <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="validation-error">
+          <div *ngIf="nameField.errors?.['required']">Name is required</div>
+          <div *ngIf="nameField.errors?.['minlength']">Name must be at least 2 characters</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          [(ngModel)]="attendee.email"
+          required
+          email
+          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          #emailField="ngModel">
+        <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)" class="validation-error">
+          <div *ngIf="emailField.errors?.['required']">Email is required</div>
+          <div *ngIf="emailField.errors?.['email'] || emailField.errors?.['pattern']">Please enter a valid email address</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number *</label>
+        <input 
+          type="tel" 
+          id="phone" 
+          name="phone" 
+          [(ngModel)]="attendee.phone"
+          required
+          pattern="^[0-9]{10}$"
+          #phoneField="ngModel">
+        <div *ngIf="phoneField.invalid && (phoneField.dirty || phoneField.touched)" class="validation-error">
+          <div *ngIf="phoneField.errors?.['required']">Phone number is required</div>
+          <div *ngIf="phoneField.errors?.['pattern']">Please enter a valid 10-digit phone number</div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button 
+          type="submit" 
+          class="btn-primary" 
+          [disabled]="!attendeeForm.form.valid || isSubmitting">
+          {{ isSubmitting ? 'Registering...' : 'Register' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
