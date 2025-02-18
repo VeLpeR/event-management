@@ -1,89 +1,56 @@
 <div class="add-event-container">
   <div class="event-form-card">
-    <h2>Create New Event</h2>
-    
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
+    <h2>{{ isEditing ? 'Edit Event' : 'Create New Event' }}</h2>
 
-    <div *ngIf="successMessage" class="success-message">
-      {{ successMessage }}
-    </div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
 
-    <form (ngSubmit)="onSubmit()" #eventForm="ngForm">
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="name">Event Name </label>
-        <input 
-          type="text" 
-          id="name" 
-          name="name" 
-          [(ngModel)]="event.name" 
-          required>
+        <label for="name">Event Name</label>
+        <input type="text" id="name" formControlName="name" required>
+        <div *ngIf="eventForm.get('name')?.invalid && (eventForm.get('name')?.dirty || eventForm.get('name')?.touched)">
+          <div *ngIf="eventForm.get('name')?.errors?.['required']">Name is required</div>
+        </div>
       </div>
 
       <div class="form-group">
-        <label for="description">Description </label>
-        <textarea 
-          id="description" 
-          name="description" 
-          [(ngModel)]="event.description" 
-          rows="4"
-          required>
-        </textarea>
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" rows="4" required></textarea>
+        <div *ngIf="eventForm.get('description')?.invalid && (eventForm.get('description')?.dirty || eventForm.get('description')?.touched)">
+          <div *ngIf="eventForm.get('description')?.errors?.['required']">Description is required</div>
+        </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="date">Date </label>
-          <input 
-            type="date" 
-            id="date" 
-            name="date" 
-            [(ngModel)]="event.date" 
-            required>
+          <label for="date">Date</label>
+          <input type="date" id="date" formControlName="date" required>
+          <div *ngIf="eventForm.get('date')?.invalid && (eventForm.get('date')?.dirty || eventForm.get('date')?.touched)">
+            <div *ngIf="eventForm.get('date')?.errors?.['required']">Date is required</div>
+          </div>
         </div>
 
         <div class="form-group">
-          <label for="type">Event Type </label>
-          <select 
-            id="type" 
-            name="type" 
-            [(ngModel)]="event.type" 
-            required>
-            <option *ngFor="let type of eventTypes" [value]="type">
-              {{type}}
-            </option>
+          <label for="type">Event Type</label>
+          <select id="type" formControlName="type" required>
+            <option *ngFor="let type of eventTypes" [value]="type">{{ type }}</option>
           </select>
+            <div *ngIf="eventForm.get('type')?.invalid && (eventForm.get('type')?.dirty || eventForm.get('type')?.touched)">
+            <div *ngIf="eventForm.get('type')?.errors?.['required']">Type is required</div>
+          </div>
         </div>
       </div>
 
-      <!-- <div class="form-group">
-        <label for="location">Location</label>
-        <input 
-          type="text" 
-          id="location" 
-          name="location" 
-          [(ngModel)]="event.location" 
-          required>
-      </div> -->
-
       <div class="form-actions">
-        <button 
-          type="button" 
-          class="btn-secondary" 
-          (click)="onCancel()" 
-          [disabled]="isSubmitting">
+        <button type="button" class="btn-secondary" (click)="onCancel()" [disabled]="isSubmitting">
           Cancel
         </button>
-        <button 
-          type="submit" 
-          class="btn-primary" 
-          [disabled]="!eventForm.form.valid || isSubmitting">
+        <button type="submit" class="btn-primary" [disabled]="eventForm.invalid || isSubmitting">
           <span *ngIf="isSubmitting" class="spinner"></span>
-          {{ isSubmitting ? 'Creating...' : 'Create Event' }}
+          {{ isSubmitting ? 'Creating...' : isEditing ? 'Editing Event' : 'Create Event' }}
         </button>
       </div>
     </form>
   </div>
 </div>
-

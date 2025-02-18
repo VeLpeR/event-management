@@ -34,5 +34,6 @@ export const routes: Routes = [
     path: 'add-event',
     component: AddEventComponent,
     canActivate: [authGuard]
-  }
+  },
+  { path: 'edit-event/:id', component: AddEventComponent, canActivate: [authGuard] },
 ];

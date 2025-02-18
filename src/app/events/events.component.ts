@@ -99,8 +99,7 @@ export class EventsComponent implements OnInit {
   }
 
   editEvent(_id: string): void {
-    console.log('Editing event with id:', _id);
-    // TODO: Implement edit logic
+    this.router.navigate(['/edit-event',_id]);
   }
 
   deleteEvent(_id: string): void {
